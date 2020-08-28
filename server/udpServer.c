@@ -17,6 +17,9 @@ int main() {
     int sockfd; 
     char buffer[MAXLINE]; 
     int status;
+  FILE *fp;
+  char path[1035];
+
     char *res;
     char *hello = "Hello from server"; 
     struct sockaddr_in servaddr, cliaddr; 
@@ -55,12 +58,27 @@ int main() {
     
     printf("Client execute: %s\n", buffer); 
     status = system(buffer);
-    *res = status + '0';
-    printf("Client executed status: %d\n",status);
-    sendto(sockfd, (const char *)res, strlen( (const char *)res ),  
+
+  /* Open the command for reading. */
+  fp = popen(buffer, "r");
+  if (fp == NULL) {
+    printf("Failed to run command\n" );
+    exit(1);
+  }
+
+  /* Read the output a line at a time - output it
+  while (fgets(path, sizeof(path), fp) != NULL) {
+    printf("%s", path);
+  }*/
+
+
+  /* close */
+
+    sendto(sockfd, (const char *)fp, strlen( (const char *)fp ),  
         MSG_CONFIRM, (const struct sockaddr *) &cliaddr, 
             len); 
-    printf("Hello message sent.\n");  
+    printf("Output sent.\n");  
       
+  pclose(fp);
     return 0; 
 } 

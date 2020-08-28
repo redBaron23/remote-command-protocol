@@ -19,6 +19,9 @@ int main(int argc, char * ( argv[] ))
 	int sockfd;
 	char buffer[MAXLINE];
 	char *hello = "Hello from client";
+	char path[1035];
+	FILE *fp;
+
 	struct hostent *h;
 
 
