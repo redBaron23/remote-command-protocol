@@ -12,6 +12,17 @@
 #define PORT     8080
 #define MAXLINE 1024
 
+char* concat(const char *s1, const char *s2)
+{
+    char *result = malloc(strlen(s1) + strlen(s2) + 1); // +1 for the null-terminator
+    // in real code you would check for errors in malloc here
+    strcpy(result, s1);
+    strcat(result, s2);
+    return result;
+}
+
+
+
 // Driver code
 int main() {
     int sockfd;
@@ -66,15 +77,15 @@ int main() {
         exit(1);
     }
 
-    /* Read the output a line at a time - output it
+    /* Read the output a line at a time - output it */
     while (fgets(path, sizeof(path), fp) != NULL) {
-      printf("%s", path);
-    }*/
+      res = concat(res,path);
+    }
 
 
     /* close */
     printf("Aca %s\n",fp);
-    sendto(sockfd, (const char *)fp, strlen( (const char *)fp ),
+    sendto(sockfd, (const char *)res, strlen( (const char *)res ),
            MSG_CONFIRM, (const struct sockaddr *) &cliaddr,
            len);
     printf("Output sent.\n");
