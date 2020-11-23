@@ -84,7 +84,6 @@ int main() {
 
 
     /* close */
-    printf("Aca %s\n",fp);
     sendto(sockfd, (const char *)res, strlen( (const char *)res ),
            MSG_CONFIRM, (const struct sockaddr *) &cliaddr,
            len);
