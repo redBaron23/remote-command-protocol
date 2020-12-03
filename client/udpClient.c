@@ -56,7 +56,6 @@ int main(int argc, char * ( argv[] ))
         exit(-1);
     }
 
-    servaddr.sin_addr.s_addr = INADDR_ANY;
 
     int n, len;
 
